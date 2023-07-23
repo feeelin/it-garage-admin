@@ -1,0 +1,42 @@
+*{
+    font-family: Montserrat;
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+body{
+    background-color: black;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 5vh 5vw;
+}
+
+.header-image{
+    display: static;
+    height: 4vh;
+}
+
+.header-title{
+    font-size: 4vh;
+    font-weight: bold;
+}
+
+.header-title > span{
+    color: #66d43d;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+

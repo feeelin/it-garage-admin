@@ -1,0 +1,41 @@
+.content-container{
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.text-input{
+    border: 3px solid #66d43d;
+    border-radius: 30px;
+    padding: 1vh 1vw;
+    width: 20vw;
+    color: black;
+}
+
+.form-button{
+    background-color: #66d43d;
+    border-radius: 30px;
+    padding: 1vh 1vw;
+    width: 15vw;
+    color: black;
+    align-self: center;
+    margin-top: 1vh;
+}
+
+@media only screen and (max-width: 800px){
+    .text-input{
+        width: 100%;
+    }
+    
+    .form-button{
+        width: 80%;
+    }
+}

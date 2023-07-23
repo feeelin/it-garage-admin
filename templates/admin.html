@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    static/css/admin.css
+{% endblock %}
+
+{% block title %}
+    Кабинет администратора
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="title-container">
+        <h1>Кабинет администратора</h1>
+        <div class="buttons-container">
+            <a href="/add_event" class="button">Создать мероприятие</a>
+            <a href="/logout" class="button">Выйти из аккаунта</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

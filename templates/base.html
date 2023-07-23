@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="shortcut icon" href="/static/images/garage.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% block style %}{% endblock %}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - IT Garage</title>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="header-title"><span>IT</span> Garage</a>
+        <a href="https://intensa.ru"><img class="header-image" src="https://intensa.ru/_nuxt/img/logo-white.1824e4d.svg" alt="logo" data-v-b392547a=""></a>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

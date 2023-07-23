@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    static/css/main.css
+{% endblock %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div>
+        <h1 class="title">Расписание <span>событий</span> гаража</h1>
+        <p class="description">Мы предоставляем площадку для самых разных мероприятий и будем рады видеть вас!</p>
+    </div>
+    <div class="schedule-container">
+        <div class="schedule-element">
+            <p class="event-title">Честный Python. Как писать красивый код под любые задачи</p>
+            <p class="event-datetime">21 июля - 18:00</p>
+            <p class='event-registration'><a href="#">Регистрация</a></p>
+        </div>
+
+        <div class="schedule-element">
+            <p class="event-title">Python и веб разработка. От вёрстки формочек до серьёзного бэкенда</p>
+            <p class="event-datetime">21 июля - 18:00</p>
+            <p class='event-registration'><a href="#">Регистрация</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
