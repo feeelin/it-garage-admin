@@ -25,6 +25,7 @@
                 <p class="event-date">{{event.date}}</p>
                 <p class="event-time">{{event.time}}</p>
             </div>
+            <p class="event-registrations"><a href="/registrations/{{event.id}}">Регистраций: {{registrations[events.index(event)]}}</a></p>
             <div>
                 <a href="/delete_event/{{event.id}}" class="button">Удалить</a>
                 <a href="/edit_event/{{event.id}}" class="button">Редактировать</a>
@@ -32,7 +33,7 @@
         </div>
     {% endfor %}
     {% if not events %}
-    <p>Пока мероприятий не запланировано</p]>
+    <p>Пока мероприятий не запланировано</p>
     {% endif %}
     </div>
 

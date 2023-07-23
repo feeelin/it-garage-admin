@@ -1,0 +1,18 @@
+.registration{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #66d43d;
+    border-radius: 30px;
+}
+
+.title{
+    text-align: center;
+}
+
+.title > span{
+    color: #66d43d;
+}
+
+.zero-registrations{
+    text-align: center;
+}

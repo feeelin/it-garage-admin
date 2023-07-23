@@ -53,6 +53,17 @@
     word-wrap: break-word;
 }
 
+.event-registrations{
+    text-align: center;
+    font-size: 2vh;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.event-registrations > a:hover{
+    color:#66d43d;
+}
+
 @media only screen and (max-width: 800px){
     .title-container{
         flex-direction: column;

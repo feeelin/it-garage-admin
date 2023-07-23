@@ -59,7 +59,7 @@ def get_valid_events(events):
 
 @app.route('/')
 def index():
-    events = get_valid_events(db.session.query(Event).all())
+    events = get_valid_events(db.session.query(Event).order_by(Event.date).all())
     return render_template('index.html', events=events)
 
 
@@ -88,8 +88,12 @@ def logout():
 @app.route('/admin')
 @login_required
 def admin():
-    events = get_valid_events(db.session.query(Event).all())
-    return render_template('admin.html', events=events)
+    events = get_valid_events(db.session.query(Event).order_by(Event.date).all())
+    registrations = []
+    for event in events:
+        registrations.append(len(db.session.query(Registration).filter_by(event_id=event.id).all()))
+
+    return render_template('admin.html', events=events, registrations=registrations)
 
 
 @app.route('/add_event', methods=['GET', 'POST'])
@@ -113,6 +117,11 @@ def add_event():
 def delete_event(id):
     event = db.session.query(Event).filter_by(id=id).first()
     db.session.delete(event)
+
+    event_registrations = db.session.query(Registration).filter_by(event_id=id).all()
+    for user in event_registrations:
+        db.session.delete(user)
+        
     db.session.commit()
     return redirect('/admin')
 
@@ -146,6 +155,15 @@ def registration(id):
         return redirect('/')
     event = db.session.query(Event).filter_by(id=id).first()
     return render_template('registration.html', event=event)
+
+
+@app.route('/registrations/<int:id>')
+@login_required
+def registrations(id):
+    registrations_list = db.session.query(Registration).filter_by(event_id=id).all()
+    event = db.session.query(Event).filter_by(id=id).first()
+
+    return render_template('registrations.html', event=event, registrations=registrations_list)
 
 
 @app.errorhandler(401)

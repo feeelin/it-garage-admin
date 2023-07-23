@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    /static/css/registrations.css
+{% endblock %}
+
+{% block title %}
+    Список зарегистрировавшихся
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">Список зарегистрировавшихся на событие <span>{{event.title}}</span></h1>
+    {% for registration in registrations %}
+    <div class="registration">
+        <p>{{registration.name}} {{registration.lastname}}</p>
+        <p>{{registration.rank}}</p>
+        <p>{{registration.phone}}</p>
+    </div>
+    {% endfor %}
+    {% if not registrations %}
+    <p class="zero-registrations">Пока никто не зарегистрировался</p>
+    {% endif %}
+{% endblock %}
