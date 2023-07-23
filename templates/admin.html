@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block style %}
-    static/css/admin.css
+    /static/css/admin.css
 {% endblock %}
 
 {% block title %}
@@ -16,6 +16,24 @@
             <a href="/add_event" class="button">Создать мероприятие</a>
             <a href="/logout" class="button">Выйти из аккаунта</a>
         </div>
+    </div>
+    {% for event in events %}
+    <div class="events-container">
+        <div class="event">
+            <p class="event-title">{{event.title}}</p>
+            <div>
+                <p class="event-date">{{event.date}}</p>
+                <p class="event-time">{{event.time}}</p>
+            </div>
+            <div>
+                <a href="/delete_event/{{event.id}}" class="button">Удалить</a>
+                <a href="/edit_event/{{event.id}}" class="button">Редактировать</a>
+            </div>
+        </div>
+    {% endfor %}
+    {% if not events %}
+    <p>Пока мероприятий не запланировано</p]>
+    {% endif %}
     </div>
 
 </div>

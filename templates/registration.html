@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    /static/css/registration.css
+{% endblock %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <h1 class="title">Регистрация на событие <span>{{event.title}}</span></h1>
+    <form method="post">
+        <input type="text" class="text-input" name="name" placeholder="Имя">
+        <input type="text" class="text-input" name="lastname" placeholder="Фамилия">
+        <input type="text" class="text-input" name="rank" placeholder="Должность">
+        <input type="tel" class="text-input" name="phone" placeholder="Номер телефона">
+        <input type="submit" class="form-button" value="Зарегистрироваться">
+    </form>
+</div>
+{% endblock %}

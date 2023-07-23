@@ -2,13 +2,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2vh;
 }
 
 .button{
     background-color: #66d43d;
     border-radius: 30px;
     padding: 1vh 1vw;
-    width: 15vw;
+    width: fit-content;
     color: black;
     align-self: center;
     margin-top: 1vh;
@@ -18,4 +19,51 @@
 .buttons-container{
     display: flex;
     gap: 2vw;
+}
+
+.events-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3vw;
+    justify-content: space-around;
+}
+
+.event{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    border: 1px solid #66d43d;
+    border-radius: 30px;
+    padding: 2vh 2vw;
+    width: 20vw;
+}
+
+.event > div{
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    flex-wrap: wrap;
+    margin-bottom: 1vh;
+}
+
+.event-title{
+    text-align: center;
+    font-size: 3vh;
+    word-wrap: break-word;
+}
+
+@media only screen and (max-width: 800px){
+    .title-container{
+        flex-direction: column;
+        margin-bottom: 5vh;
+    }
+
+    .events-container{
+        flex-direction: column;
+    }
+
+    .event{
+        width: 100%;
+    }
 }

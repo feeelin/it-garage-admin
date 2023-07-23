@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    /static/css/add_event.css
+{% endblock %}
+
+{% block title %}
+    Создание события
+{% endblock %}
+
+{% block content %}
+    <div class="content-container">
+        <h1 class="title">Создание мероприятия</h1>
+        <form method="post">
+            <input type="text" placeholder="Название" name="title" class="text-input">
+            <input type="date" placeholder="Дата" name="date" class="text-input">
+            <input type="time" placeholder="Время" name="time" class="text-input">
+            <input type="submit" class="form-button" value="Создать">
+        </form>
+    </div>
+{% endblock %}

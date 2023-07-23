@@ -1,0 +1,33 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.text-input{
+    border: 3px solid #66d43d;
+    border-radius: 30px;
+    align-self: center;
+    padding: 1.2vh 1.2vw;
+    width: 80%;
+    color: black;
+}
+
+.form-button{
+    background-color: #66d43d;
+    border-radius: 30px;
+    padding: 1.2vh 1.2vw;
+    width: 50%;
+    color: black;
+    align-self: center;
+    margin-top: 1vh;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+h1 > span{
+    color: #66d43d;
+}

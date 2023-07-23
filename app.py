@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+from flask_migrate import Migrate
+from datetime import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -9,6 +11,8 @@ app.config['SECRET_KEY'] = 'eureka'
 db = SQLAlchemy(app)
 
 login_manager = LoginManager(app)
+
+migrate = Migrate(app, db)
 
 
 class User(db.Model, UserMixin):
@@ -28,6 +32,16 @@ class Event(db.Model):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
     date = db.Column(db.String, nullable=False)
+    time = db.Column(db.String, nullable=False)
+
+
+class Registration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    lastname = db.Column(db.String, nullable=False)
+    rank = db.Column(db.String)
+    phone = db.Column(db.String, nullable=False)
+    event_id = db.Column(db.Integer, nullable=False)
 
 
 @login_manager.user_loader
@@ -35,9 +49,18 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+def get_valid_events(events):
+    output = []
+    for event in events:
+        if datetime.strptime(event.date, '%d.%m.%Y').date() >= datetime.today().date():
+            output.append(event)
+    return output
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    events = get_valid_events(db.session.query(Event).all())
+    return render_template('index.html', events=events)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,7 +88,64 @@ def logout():
 @app.route('/admin')
 @login_required
 def admin():
-    return render_template('admin.html')
+    events = get_valid_events(db.session.query(Event).all())
+    return render_template('admin.html', events=events)
+
+
+@app.route('/add_event', methods=['GET', 'POST'])
+@login_required
+def add_event():
+    if request.method == 'POST':
+        data = request.form
+        if data['title'] and data['date'] and data['time']:
+            date = (datetime.strptime(data['date'], '%Y-%m-%d').date()).strftime('%d.%m.%Y')
+            new_event = Event(title=data['title'], date=date, time=data['time'])
+            db.session.add(new_event)
+            db.session.commit()
+            return redirect('/admin')
+        else:
+            redirect('/add_event')
+    return render_template('add_event.html')
+
+
+@app.route('/delete_event/<int:id>')
+@login_required
+def delete_event(id):
+    event = db.session.query(Event).filter_by(id=id).first()
+    db.session.delete(event)
+    db.session.commit()
+    return redirect('/admin')
+
+
+@app.route('/edit_event/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_event(id):
+    if request.method == 'POST':
+        event = db.session.query(Event).filter_by(id=id).first()
+        event.title = request.form['title']
+        event.date = (datetime.strptime(request.form['date'], '%Y-%m-%d').date()).strftime('%d.%m.%Y')
+        event.time = request.form['time']
+
+        db.session.add(event)
+        db.session.commit()
+
+        return redirect('/admin')
+
+    event = db.session.query(Event).filter_by(id=id).first()
+    date = (datetime.strptime(event.date, '%d.%m.%Y').date()).strftime('%Y-%m-%d')
+    return render_template('edit_event.html', event=event, date=date)
+
+
+@app.route('/registration/<int:id>', methods=['GET', 'POST'])
+def registration(id):
+    if request.method == 'POST':
+        new_registration = Registration(name=request.form['name'], lastname=request.form['lastname'],
+                                        rank=request.form['rank'], phone=request.form['phone'], event_id=id)
+        db.session.add(new_registration)
+        db.session.commit()
+        return redirect('/')
+    event = db.session.query(Event).filter_by(id=id).first()
+    return render_template('registration.html', event=event)
 
 
 @app.errorhandler(401)

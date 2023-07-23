@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block style %}
-    static/css/main.css
+    /static/css/main.css
 {% endblock %}
 
 {% block title %}
@@ -15,17 +15,19 @@
         <p class="description">Мы предоставляем площадку для самых разных мероприятий и будем рады видеть вас!</p>
     </div>
     <div class="schedule-container">
+        {% for event in events %}
         <div class="schedule-element">
-            <p class="event-title">Честный Python. Как писать красивый код под любые задачи</p>
-            <p class="event-datetime">21 июля - 18:00</p>
-            <p class='event-registration'><a href="#">Регистрация</a></p>
+            <p class="event-title">{{event.title}}</p>
+            <p class="event-datetime">{{event.date}} - {{event.time}}</p>
+            <p class='event-registration'><a href="/registration/{{event.id}}">Регистрация</a></p>
         </div>
-
+        {% endfor %}
+        {% if not events %}
         <div class="schedule-element">
-            <p class="event-title">Python и веб разработка. От вёрстки формочек до серьёзного бэкенда</p>
-            <p class="event-datetime">21 июля - 18:00</p>
-            <p class='event-registration'><a href="#">Регистрация</a></p>
+            <p class="event-title">Пока ничего нет</p>
+            <p class="event-datetime">Следите за обновлениями!</p>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
